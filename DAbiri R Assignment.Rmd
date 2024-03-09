@@ -12,7 +12,6 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 library(httr)
 github_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/snp_position.txt"
 snp_position <- read.table(url(github_url), header = TRUE, sep = "\t")
-tail(snp_position)
 github_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt"
 fang_et_al_genotypes <- read.table(url(github_url), header = TRUE, sep = "\t")
 ```
@@ -88,23 +87,20 @@ teosinte_snp_genotype <- teosinte_snp_genotype %>% mutate_all(function(x) gsub("
 ```{r}
 library(dplyr)
 library(readr)
-
-# Loop through each chromosome
 for (i in 1:10) {
   print(paste("Processing Chromosome", i))
   ascending_data <- maize_snp_genotype %>% 
     filter(Chromosome == i) %>% 
     arrange(as.numeric(Position))
   
-  # Filter and arrange data for descending order
   descending_data <- maize_snp_genotype %>% 
     filter(Chromosome == i) %>% 
     arrange(desc(as.numeric(Position)))
   
-  # Write ascending file
+ 
   write_tsv(ascending_data, paste("Maize_chr", i, "ascending.txt", sep = "_"))
   
-  # Write descending file
+ 
   write_tsv(descending_data, paste("Maize_chr", i, "descending.txt", sep = "_"))
 }
   
@@ -139,6 +135,10 @@ ggplot(maize_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill = 
 ```
 
 ```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
 cleaned_fang <- fang_et_al_genotypes %>%
   select(-JG_OTU) %>%
   pivot_longer(cols = -c(Sample_ID, Group), names_to = "SNP_ID", values_to = "Sequence")
@@ -149,19 +149,12 @@ cleaned_fang <- cleaned_fang %>%
     Sequence == "?/?" ~ "Missing",
     TRUE ~ "Heterozygous"
   ))
-ggplot(cleaned_fang, aes(x = Sample_ID, fill = new_sequence)) + 
-  geom_bar(position = "fill") + theme_bw()
-library(ggplot2)
-
-ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
-  geom_bar() +
-  theme_bw()
-library(ggplot2)
 
 ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
   geom_bar() +
   theme_bw() +
   labs(title = "Distribution of Genotypes", x = "Genotype", y = "Count")
+
 
 
 ```
