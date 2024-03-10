@@ -1,7 +1,7 @@
 ---
 title: "Dabiri Workflow"
 output: R Markdown
-date: "2024-03-04"
+date: "2024-03-10"
 ---
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
@@ -10,11 +10,28 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 ### This line of code imports the data set to be used into R studio.
 ```{r}
 library(httr)
-github_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/snp_position.txt"
-snp_position <- read.table(url(github_url), header = TRUE, sep = "\t")
-github_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt"
-fang_et_al_genotypes <- read.table(url(github_url), header = TRUE, sep = "\t")
+
+# Define the URLs for the data
+snp_position_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/snp_position.txt"
+fang_et_al_genotypes_url <- "https://raw.githubusercontent.com/EEOB-BioData/BCB546_Spring2024/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt"
+
+# Read data from URLs
+snp_position <- read.table(url(snp_position_url), header = TRUE, sep = "\t")
+fang_et_al_genotypes <- read.table(url(fang_et_al_genotypes_url), header = TRUE, sep = "\t")
+
+# Create the output folder if it doesn't exist
+output_folder <- "output_folder"
+if (!file.exists(output_folder)) {
+  dir.create(output_folder)
+}
+snp_position_file <- file.path(output_folder, "snp_position.txt")
+fang_et_al_genotypes_file <- file.path(output_folder, "fang_et_al_genotypes.txt")
+
+# Write the data to files
+write.table(snp_position, file = snp_position_file, sep = "\t", row.names = FALSE)
+write.table(fang_et_al_genotypes, file = fang_et_al_genotypes_file, sep = "\t", row.names = FALSE)
 ```
+
 #Data Inspection: The following set of code inspects the data 
 ```{r}
 ###This shows the dimension of the dataframe 
@@ -138,6 +155,7 @@ ggplot(maize_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill = 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(tidyverse)
 
 cleaned_fang <- fang_et_al_genotypes %>%
   select(-JG_OTU) %>%
@@ -155,11 +173,7 @@ ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
   theme_bw() +
   labs(title = "Distribution of Genotypes", x = "Genotype", y = "Count")
 
-
-
 ```
-
-  
 ```
 
   
