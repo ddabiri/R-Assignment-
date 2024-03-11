@@ -1,0 +1,4 @@
+"0","###This replaces all the ? data with -"
+"0","maize_snp_genotype <- maize_snp_genotype %>% mutate_all(function(x) gsub(""\\?"", ""\\-"",x))"
+"0","teosinte_snp_genotype <- teosinte_snp_genotype %>% mutate_all(function(x) gsub(""\\?"", ""\\-"",x))"
+"0",""

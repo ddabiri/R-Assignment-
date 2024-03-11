@@ -1,0 +1,5 @@
+"0","### Data processing "
+"0","# This line of code copies out the data based on the group into a new file Maize_data and teosinte_data"
+"0","maize_data_group <- fang_et_al_genotypes[fang_et_al_genotypes$Group %in% c(""ZMMIL"", ""ZMMLR"", ""ZMMMR""), ]"
+"0","teosinte_data_group <- fang_et_al_genotypes[fang_et_al_genotypes$Group %in% c(""ZMPBA"", ""ZMPIL"", ""ZMPJA""), ]"
+"0",""
