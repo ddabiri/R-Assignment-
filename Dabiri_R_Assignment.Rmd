@@ -1,13 +1,9 @@
 ---
-title: "Dabiri Workflow"
-output: R Markdown
-date: "2024-03-10"
+title: "Dabiri R Assignment "
+output: html_document
+date: "2024-03-11"
 ---
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-### This line of code imports the data set to be used into R studio.
+This line of code imports the data set to be used into R studio.
 ```{r}
 library(httr)
 
@@ -32,8 +28,8 @@ write.table(snp_position, file = snp_position_file, sep = "\t", row.names = FALS
 write.table(fang_et_al_genotypes, file = fang_et_al_genotypes_file, sep = "\t", row.names = FALSE)
 ```
 
-#Data Inspection: The following set of code inspects the data 
 ```{r}
+#Data Inspection: The following set of code inspects the data 
 ###This shows the dimension of the dataframe 
 dim(fang_et_al_genotypes) 
 dim(snp_position)
@@ -94,11 +90,11 @@ nrow(teosinte_genotypes_trans)
 nrow(snp_position_arranged)
 ```
 
-
 ```{r}
 ###This replaces all the ? data with -
 maize_snp_genotype <- maize_snp_genotype %>% mutate_all(function(x) gsub("\\?", "\\-",x))
 teosinte_snp_genotype <- teosinte_snp_genotype %>% mutate_all(function(x) gsub("\\?", "\\-",x))
+
 ```
 
 ```{r}
@@ -126,15 +122,19 @@ for (i in 1:10) {
 ```{r}
 for (i in 1:10) {
   print(paste("Processing Chromosome", i))
+  
   ascending_data <- teosinte_snp_genotype %>% 
     filter(Chromosome == i) %>% 
     arrange(as.numeric(Position))
+  
   descending_data <- teosinte_snp_genotype %>% 
     filter(Chromosome == i) %>% 
     arrange(desc(as.numeric(Position)))
+  
   write_tsv(ascending_data, paste("teosinte_chr", i, "ascending.txt", sep = "_"))
   write_tsv(descending_data, paste("teosinte_chr", i, "descending.txt", sep = "_"))
 }
+
 ```
 
 ```{r}
@@ -148,9 +148,19 @@ maize_snp_genotype$Chromosome <- factor(
 ggplot(maize_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill = Chromosome)) +
   geom_boxplot() +
   theme_minimal() +
-  labs(x = "Chromosome", y = "Position", title = "Boxplot by Chromosome")
-```
+  labs(x = "Chromosome", y = "Position", title = "Boxplot by Chromosome for maize ")
+  
+teosinte_snp_genotype$Chromosome <- factor(
+  teosinte_snp_genotype$Chromosome,
+  levels = as.character(1:10),
+  ordered = TRUE
+)
 
+ggplot(teosinte_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill = Chromosome)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(x = "Chromosome", y = "Position", title = "Boxplot by Chromosome for teosinte")
+```
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -172,8 +182,4 @@ ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
   geom_bar() +
   theme_bw() +
   labs(title = "Distribution of Genotypes", x = "Genotype", y = "Count")
-
 ```
-```
-
-  
