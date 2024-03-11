@@ -98,6 +98,7 @@ teosinte_snp_genotype <- teosinte_snp_genotype %>% mutate_all(function(x) gsub("
 ```
 
 ```{r}
+# Writing out the Chromosome based on desending and ascending  SNPposition for Maize
 library(dplyr)
 library(readr)
 for (i in 1:10) {
@@ -120,6 +121,7 @@ for (i in 1:10) {
 ```
 
 ```{r}
+#Writing out the Chromosome based on desending and ascending  SNPposition for Teosinte
 for (i in 1:10) {
   print(paste("Processing Chromosome", i))
   
@@ -138,6 +140,7 @@ for (i in 1:10) {
 ```
 
 ```{r}
+#SNP vs Chromosome boxplot 
 library(ggplot2)
 maize_snp_genotype$Chromosome <- factor(
   maize_snp_genotype$Chromosome,
@@ -162,6 +165,8 @@ ggplot(teosinte_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill
   labs(x = "Chromosome", y = "Position", title = "Boxplot by Chromosome for teosinte")
 ```
 ```{r}
+
+#Heterozygous vs
 library(dplyr)
 library(tidyr)
 library(ggplot2)
