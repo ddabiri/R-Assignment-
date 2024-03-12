@@ -1,3 +1,4 @@
+"0","# Writing out the Chromosome based on desending and ascending  SNPposition for Maize"
 "0","library(dplyr)"
 "0","library(readr)"
 "0","for (i in 1:10) {"
