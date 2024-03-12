@@ -1,3 +1,0 @@
-"0","# This line of code will arrange the snp_position data frame by SNP_ID"
-"0","snp_position_Chr <- snp_position[,-c(2,5:15)] "
-"0","snp_position_arranged <- arrange(snp_position_Chr, SNP_ID)"

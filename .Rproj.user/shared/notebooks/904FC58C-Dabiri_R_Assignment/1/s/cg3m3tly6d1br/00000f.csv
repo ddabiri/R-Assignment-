@@ -1,8 +1,0 @@
-"0","library(dplyr)"
-"0",""
-"0","# Remove columns 1 to 3 from the maize_data_group and teosinte_data_group data frame"
-"0","maize_data_group <- select(maize_data_group, -(1:3))"
-"0","teosinte_data_group <- select(teosinte_data_group, -(1:3))"
-"0","# The data will be transposed using this line of code"
-"0","maize_genotypes_trans <- t(maize_data_group)"
-"0","teosinte_genotypes_trans <- t(teosinte_data_group)"
