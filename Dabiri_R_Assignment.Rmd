@@ -232,5 +232,18 @@ ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
 
 #My own Visualization
 ```{r}
-setwd("C:/Users/dabir/OneDrive - Iowa State University/Documents/Dabiri")
+library(ggplot2)
+
+library(ggplot2)
+
+# library(ggplot2)
+
+# library(ggplot2)
+
+# Create the scatter plot
+ggplot(data = genotype_counts) +
+  geom_point(mapping = aes(x = Position, y = count)) +
+  labs(title = "Scatter Plot of Genotype Varieties by Group") +
+  theme_minimal()  # Optional: Use a minimal theme for cleaner look
+
 ```
