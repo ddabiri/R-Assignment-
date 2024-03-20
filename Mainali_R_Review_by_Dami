@@ -1,3 +1,4 @@
+
 ---
 title: "R_Assignment-Ashmita"
 output: html_document
@@ -9,8 +10,8 @@ date: "2024-03-06"
 library(readr)
 library(tidyverse)
 library(dplyr)
-
 ```
+
 ```{r}
 
 #load text files "fang_et_al_genotypes.txt" and "snp_position.txt" as dataframe; pull from GitHub

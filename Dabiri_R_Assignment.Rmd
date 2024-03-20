@@ -139,6 +139,8 @@ for (i in 1:10) {
 
 ```
 
+
+#Data Visualization
 ```{r}
 #SNP vs Chromosome boxplot 
 library(ggplot2)
@@ -164,6 +166,45 @@ ggplot(teosinte_snp_genotype, aes(x = Chromosome, y = as.numeric(Position), fill
   theme_minimal() +
   labs(x = "Chromosome", y = "Position", title = "Boxplot by Chromosome for teosinte")
 ```
+
+#Data Visualization
+```{r}
+library(ggplot2)
+
+# For maize
+maize_snp_genotype$Chromosome <- factor(
+  maize_snp_genotype$Chromosome,
+  levels = as.character(1:10),
+  ordered = TRUE
+)
+
+# Count SNPs per chromosome for maize
+maize_snp_counts <- data.frame(table(maize_snp_genotype$Chromosome))
+
+# Plot bar graph for maize
+ggplot(maize_snp_counts, aes(x = Var1, y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Chromosome", y = "Number of SNPs", title = "SNP Distribution per Chromosome for Maize")
+
+# For teosinte
+teosinte_snp_genotype$Chromosome <- factor(
+  teosinte_snp_genotype$Chromosome,
+  levels = as.character(1:10),
+  ordered = TRUE
+)
+
+# Count SNPs per chromosome for teosinte
+teosinte_snp_counts <- data.frame(table(teosinte_snp_genotype$Chromosome))
+
+# Plot bar graph for teosinte
+ggplot(teosinte_snp_counts, aes(x = Var1, y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(x = "Chromosome", y = "Number of SNPs", title = "SNP Distribution per Chromosome for Teosinte")
+```
+
+
 ```{r}
 
 #Heterozygous vs
@@ -187,4 +228,9 @@ ggplot(cleaned_fang, aes(x = new_sequence, fill = new_sequence)) +
   geom_bar() +
   theme_bw() +
   labs(title = "Distribution of Genotypes", x = "Genotype", y = "Count")
+```
+
+#My own Visualization
+```{r}
+setwd("C:/Users/dabir/OneDrive - Iowa State University/Documents/Dabiri")
 ```
