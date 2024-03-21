@@ -245,5 +245,5 @@ ggplot(data = genotype_counts) +
   geom_point(mapping = aes(x = Position, y = count)) +
   labs(title = "Scatter Plot of Genotype Varieties by Group") +
   theme_minimal()  # Optional: Use a minimal theme for cleaner look
-
+s
 ```
